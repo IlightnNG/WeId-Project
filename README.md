@@ -10,10 +10,11 @@
 3. 嵌入书评系统
 4. 区块链可移植性
 
-### from NJUST
+### from *NJUST*
+
+--------
 
 ## WeIdentity JAVA SDK安装部署工具
---------
 
 ### 整体介绍
 
