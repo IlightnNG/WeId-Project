@@ -197,6 +197,5 @@ doc/bak/
 
 # IntelliJ project files
 .idea
-*.iml
 out
 gen
