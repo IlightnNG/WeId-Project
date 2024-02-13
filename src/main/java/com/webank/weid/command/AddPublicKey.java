@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class AddPublicKey {
 
+    private static WeIdService weIdService = new WeIdServiceImpl();
     private static final Logger logger = LoggerFactory.getLogger(WeIdServiceImpl.class);
 
     public static void main(String[] args) {
@@ -43,7 +44,7 @@ public class AddPublicKey {
         }
 
 
-        WeIdService weIdService = new WeIdServiceImpl();
+        /*WeIdService weIdService = new WeIdServiceImpl();*/
 
 
         //获得private key 对应的weid
