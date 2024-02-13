@@ -90,4 +90,11 @@ public class CommandArgs {
     
     @Parameter(names = "--desc", description = "desc")
     private String desc;
+
+    @Parameter(names = "--issuer-index", description = "issuer index")
+    private int issuerIndex;
+
+    @Parameter(names = "--issuer-num", description = "issuer num")
+    private int issuerNum;
+
 }

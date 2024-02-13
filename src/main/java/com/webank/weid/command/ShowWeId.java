@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ShowWeId {
 
+    //还在思考有必要将此方法移至weIdSdkService中
+    private static WeIdService weIdService = new WeIdServiceImpl();
 
     public static void main(String[] args) {
 
@@ -17,19 +19,21 @@ public class ShowWeId {
         //log提示
         log.info("[ShowWeId] begin to show WeId.");
 
-        WeIdService weIdService = new WeIdServiceImpl();
+        //WeIdService weIdService = new WeIdServiceImpl();
 
         //show json of weid document
         ResponseData<String> responseJson = weIdService.getWeIdDocumentJson(testWeId);
-        System.out.println("-----------------------------");
-        System.out.println(responseJson.getResult());
-        System.out.println("-----------------------------");
 
-        //输出信息
+        //输出失败信息
         if (responseJson.getErrorCode() != ErrorCode.SUCCESS.getCode()) {
             System.out.println("[Show WeId] Show WeId failed, result: " + responseJson.getErrorMessage());
             System.exit(1);
         }
+
+        System.out.println("-----------------------------");
+        System.out.println(responseJson.getResult());
+        System.out.println("-----------------------------");
+
         System.exit(0);
     }
 }
