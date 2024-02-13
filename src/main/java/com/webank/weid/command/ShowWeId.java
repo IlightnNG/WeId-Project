@@ -23,15 +23,17 @@ public class ShowWeId {
 
         //show json of weid document
         ResponseData<String> responseJson = weIdService.getWeIdDocumentJson(testWeId);
-        System.out.println("-----------------------------");
-        System.out.println(responseJson.getResult());
-        System.out.println("-----------------------------");
 
-        //输出信息
+        //输出失败信息
         if (responseJson.getErrorCode() != ErrorCode.SUCCESS.getCode()) {
             System.out.println("[Show WeId] Show WeId failed, result: " + responseJson.getErrorMessage());
             System.exit(1);
         }
+
+        System.out.println("-----------------------------");
+        System.out.println(responseJson.getResult());
+        System.out.println("-----------------------------");
+
         System.exit(0);
     }
 }
