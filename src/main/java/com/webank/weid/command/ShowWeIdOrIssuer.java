@@ -2,10 +2,13 @@ package com.webank.weid.command;
 
 import com.beust.jcommander.JCommander;
 import com.webank.weid.constant.ErrorCode;
+import com.webank.weid.dto.Issuer;
+import com.webank.weid.dto.PageDto;
 import com.webank.weid.protocol.base.AuthorityIssuer;
 import com.webank.weid.protocol.response.ResponseData;
 import com.webank.weid.rpc.AuthorityIssuerService;
 import com.webank.weid.rpc.WeIdService;
+import com.webank.weid.service.WeIdSdkService;
 import com.webank.weid.service.impl.AuthorityIssuerServiceImpl;
 import com.webank.weid.service.impl.WeIdServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -60,14 +63,15 @@ public class ShowWeIdOrIssuer {
             //log提示
             log.info("[ShowIssuer] begin to show issuer.");
 
-            AuthorityIssuerService authorityIssuerService = new AuthorityIssuerServiceImpl();
+            WeIdSdkService weIdSdkService = new WeIdSdkService();
             //展示所有发行方列表
 
-            int index = commandArgs.getIssuerIndex();
-            int num = commandArgs.getIssuerNum();
+            int index = commandArgs.getIndex();
+            int num = commandArgs.getNum();
 
-            ResponseData<List<AuthorityIssuer>> response = authorityIssuerService.getAllAuthorityIssuerList(index, num);
+            PageDto<Issuer> pageDto = new PageDto<>(index,num);
 
+            ResponseData<PageDto<Issuer>> response = weIdSdkService.getIssuerList(pageDto);
             //输出信息
             if (response.getErrorCode() != ErrorCode.SUCCESS.getCode()) {
                 System.out.println("[ShowIssuer] Show issuer failed, result: " + response.getErrorMessage());
@@ -75,7 +79,7 @@ public class ShowWeIdOrIssuer {
             }
 
             System.out.println("-----------------------------");
-            System.out.println(response.getResult());
+            System.out.println(response.getResult().getDataList());
             System.out.println("-----------------------------");
 
             System.exit(0);

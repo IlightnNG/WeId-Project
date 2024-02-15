@@ -18,20 +18,23 @@ if [ "$1" = "--weid" ] ; then
 
     java ${JAVA_OPTS} -cp "$CLASSPATH" com.webank.weid.command.ShowWeIdOrIssuer $@
 
-elif [ "$1" = "--issuer-index" ] &&[ "$3" = "--issuer-num"  ] ; then
+elif [ "$1" = "--index" ] &&[ "$3" = "--num"  ] ; then
     echo "Showing issuer list, please wait..."
-    issuerIndex=$2
-    issuerNum=$4
+    index=$2
+    num=$4
 
     java ${JAVA_OPTS} -cp "$CLASSPATH" com.webank.weid.command.ShowWeIdOrIssuer $@
 
-elif [ "$3" = "--issuer-index" ] && [ "$1" = "--issuer-num"  ] ; then
+elif [ "$3" = "--index" ] && [ "$1" = "--num"  ] ; then
     echo "Showing issuer list, please wait..."
-    issuerIndex=$4
-    issuerNum=$2
+    index=$4
+    num=$2
 
     java ${JAVA_OPTS} -cp "$CLASSPATH" com.webank.weid.command.ShowWeIdOrIssuer $@
 
+else
+    echo "input error."
+    exit 1
 fi
 
 
@@ -43,5 +46,3 @@ fi
 if [ "$1" == "no_del" ];then
     exit 0
 fi
-
-echo "Show succeed"

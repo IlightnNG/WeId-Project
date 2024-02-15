@@ -2,6 +2,7 @@ package com.webank.weid.command;
 
 import com.beust.jcommander.JCommander;
 import com.webank.weid.constant.ErrorCode;
+import com.webank.weid.dto.CptInfo;
 import com.webank.weid.dto.Issuer;
 import com.webank.weid.dto.PageDto;
 import com.webank.weid.protocol.base.AuthorityIssuer;
@@ -13,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 @Slf4j
-public class ShowIssuerList {
+public class ShowCptList {
     private static WeIdSdkService weIdSdkService = new WeIdSdkService();
     public static void main(String[] args) {
 
-        if (args == null || args.length < 4) {
+        if (args == null || args.length < 6) {
             log.error(
-                    "[ShowIssuerList] input parameters error, please check your input!");
+                    "[ShowCptList] input parameters error, please check your input!");
             System.exit(1);
         }
 
@@ -30,20 +31,23 @@ public class ShowIssuerList {
                 .parse(args);
 
         //log提示
-        log.info("[ShowIssuerList] begin to show issuer.");
+        log.info("[ShowCptList] begin to show cpt.");
 
-        //获取index和num
+        //获取index num cptType
         int index = commandArgs.getIndex();
         int num = commandArgs.getNum();
+        String cptType = commandArgs.getType();
 
-        PageDto<Issuer> pageDto = new PageDto<>(index,num);
+        PageDto<CptInfo> pageDto = new PageDto<>(index,num);
+        pageDto.setQuery(new CptInfo());
+        pageDto.getQuery().setCptType(cptType);
 
         //展示所有发行方列表
-        ResponseData<PageDto<Issuer>> response = weIdSdkService.getIssuerList(pageDto);
+        ResponseData<PageDto<CptInfo>> response = weIdSdkService.getCptList(pageDto);
 
         //输出信息
         if (response.getErrorCode() != ErrorCode.SUCCESS.getCode()) {
-            System.out.println("[ShowIssuerList] Show issuer list failed, result: " + response.getErrorMessage());
+            System.out.println("[ShowCptList] Show cpt list failed, result: " + response.getErrorMessage());
             System.exit(1);
         }
 
